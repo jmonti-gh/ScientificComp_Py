@@ -1,0 +1,26 @@
+^   Matches the beginning of a line
+$   Matches the end of a line
+.   Matchesany char 
+\s  Matches whitespace
+\S  Matches any non-whitespace char 
+*   Repeats 0 or more times
+*?  ... but non-greedy
++   Repeats 1 or more times
++?  ... but non-greedy
+[aeiou]     Matches a single char in the listed set
+[^XYZ]      Matches a single char not in the listed set
+[a-z0-9]    The set of chars can include a range
+(   Indicates where string extraction is to start
+)   Indicates where string extraction is to end
+
+
+___  ^X.*:   match...
+X-Sieve: someth
+X-DSPAM-Result: Innocent
+X-Plane is not sched: 2 weeks
+___  ^X-\S+:   Don't match the last
+
+
+regex in Py > import re
+re.search('regex', trin); returns True/False whether trin matches regex
+re.findall(); to match trin to be extracted (extracts trings in a list)
