@@ -1,4 +1,5 @@
-''' Networking: using urllib in Python, a library that does
+''' 
+Networking: using urllib in Python, a library that does
 all the socket work for us & mks web pages look like files'''
 
 # urllib is a pkg that collects several mods for work w/URLs
