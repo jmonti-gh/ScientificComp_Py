@@ -33,11 +33,11 @@ mysock.connect(('data.pr4e.org', 80))
 # Perpare the cmd i'll send to the running server:
 # GET (form HTTP doc), \n\n: return & the blank line needed
 # .encode() string method: prepare data to go across the INET
-## cmd = 'GET https://data.pr4e.org/romeo.txt HTTP/1.0\n\n'.encode()
-#cmd = 'https://data.pr4e.org/romeo.txt'
+# cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
 # And now send the cmd (little string encoded) across the INET
 ## mysock.send(cmd)
-mysock.send(b"GET / HTTP/1.1\r\nHost:data.pr4e.org\r\n\r\n")
+mysock.send(b"GET /romeo.txt HTTP/1.1\r\nHost:data.pr4e.org\r\n\r\n")
+#mysock.send(b"GET / HTTP/1.1\r\nHost:data.pr4e.org\r\n\r\n")
 
 # I choose to recieve from server
 while True:
@@ -46,6 +46,7 @@ while True:
     print(data.decode())
 mysock.close()
 
+a = input()
 # .connect {mysock.connect(('data.pr4e.org', 80))} is dangerous, for ex. wo/INET:
 # Traceback... | socket.gaierror: [Errno 11002] getaddrinfo failed
 
