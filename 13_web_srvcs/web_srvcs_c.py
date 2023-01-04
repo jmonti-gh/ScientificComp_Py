@@ -1,41 +1,72 @@
-''' Networking: using urllib in Python, a library that does
-all the socket work for us & mks web pages look like files'''
+''' Web Services: XML Schema - XML Examples (eXtended Markup Language) '''
 
-# urllib is a pkg that collects several mods for work w/URLs
-# urllib.request: for opening and reading URLs
-# urllib. parse: for parsing URLs
-# urllib.error: contain exceptions rised by .request
-import urllib.request, urllib.parse, urllib.error
+# ISO 8601 Date/Time Format: 2023-01-29T09:45:59Z (UTC/GMT/Zulu)
+# <xs:element name="start" type="xs.date"/>  -  <start>2023-01-29</start>
+# <xs:element name="startdate" type="xs.dateTime"/>  - <startdate> ... </startdate>
 
-# .urlopen funct. does all for as: makes the connection, does the get,
-# encodes the get request, retrieve at this moment, retrieves all the 
-# headers and keeps it for you for later & returns an object
-shand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+# We talk XML inside Python w/'ElementTree'
+import xml.etree.ElementTree as ET
 
-# Reading a text file
-print("\n\turllib.request.urlopen('http://data.pr4e.org/romeo.txt'):")
-print('-' * 70)
-for ln in shand:
-    # lines we get are bytes, we have to decode
-    print('\t',ln.decode().strip())
-shand.close()
+# XML example that normally is gona come somwhere from the network
+data = '''
+<person>
+    <name>Martha</name>
+    <phone type="intl">+54 261 420 314</phone>
+    <email hide="yes"/>
+</person> '''
 
-# Counting words repeatance
+# diff text phone content with:
+#   <phone type="intl">
+#       +54 261 420 314
+#   </phone>
+
+
+print('\n~~~~~~~ XML case: Only one register ~~~~~~~')
+# Parse the XML-string and obtain an object (kind of a tree version of the XML)
+tree = ET.fromstring(data)
+print('  ', tree, type(tree), '\n')
+# We can query tree to pull data from it w/.find() method lool for a tag
+# it finds everithing (tag, text, all), choose to see only the text
+print('Name:', tree.find('name').text) 
+print('Phone:', tree.find('phone').text) 
+# To see child <email> attribute (can .get() any of the attributes)
+print("email 'hide' attr.:", tree.find('email').get('hide'))
+# Ther is only one 'text" but "attributes" several
 print()
-counts = dict()
-for ln in urllib.request.urlopen('http://data.pr4e.org/romeo.txt'):
-    wds = ln.decode().split()
-    for wd in wds:
-        counts[wd] = counts.get(wd, 0) + 1
-# When finish 'for ln in ...' loop handle is automatic close
-print(counts, ' - Max. repetead:', max(counts.values()))
 
-# Reading Web Pages (HTML writed)
-print("\n\turllib.request.urlopen('http://www.dr-chuck.com/page1.htm'):")
-print('-' * 70)
-for ln in urllib.request.urlopen('http://www.dr-chuck.com/page1.htm'):
-    # lines we get are bytes, we have to decode
-    print('\t',ln.decode().strip())
-shand.close()
+# Other example w/ more data
+# xml.etree.ElementTree as ET, just imported above
+inpxml = '''
+<stuff>                        
+    <users>
+        <user x="2">
+            <id>001</id>
+            <name>Quique</name>
+        </user>
+        <user x="7">
+            <id>009</id>
+            <name>Pedro</name>
+        </user>
+         <user x="9">
+            <id>052</id>
+            <name>Guille</name>
+        </user>
+    </users>
+</stuff> '''
+# single tag in the outside <stuff>, complex type of users: 3 users objs. (a list)
 
-# Later Parssing HTML (a.k.a. Web Scraping)
+print('\n~~~~~~~ XML case: more than one register ~~~~~~~')
+elmstf = ET.fromstring(inpxml)       # ElementTree obj.
+print('  ', elmstf, type(elmstf), '\n')
+lst = elmstf.findall('users/user')
+print('lst:', lst, type(lst), type(lst[0]))
+print('Users count:', len(lst))
+print()
+print('{:^3}  {:^8}  {:^6}  {:^8}'.format('','--Name--', '--Id--', '--x attr--'))
+cnt = 0
+for it in lst:
+    cnt += 1
+    print('{:>3}   {:<8} {:>5}  {:>6}'.format(cnt, it.find('name').text,
+     it.find('id').text, it.get('x')))
+print()
+
