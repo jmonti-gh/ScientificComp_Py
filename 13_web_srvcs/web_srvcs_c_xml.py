@@ -1,4 +1,5 @@
-''' Web Services: XML Schema - XML Examples (eXtended Markup Language) '''
+''' XML (eXtended Markup Language) -Web Services: XML Schema 
+Parsing XMLs. Reading its data - examples '''
 
 # ISO 8601 Date/Time Format: 2023-01-29T09:45:59Z (UTC/GMT/Zulu)
 # <xs:element name="start" type="xs.date"/>  -  <start>2023-01-29</start>
