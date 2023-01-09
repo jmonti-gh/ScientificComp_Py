@@ -1,34 +1,37 @@
 ''' Objects Lidecycle'''
 
 class PartyAnimal:
-    class_var2 = 1122
+    class_var = 1122
+    name = 'class_var name'
 
-    def __init__(self):
-        self.i_x = 0
+    def __init__(self, z):      # constructor
+        self.x = 0
+        self.name = z
+        print('Constructor build', self.name, ' - x:', self.x)
 
     def party(self):
-        self.i_x += 1
-        print('So far:', self.i_x)        
+        self.x += 1
+        print('So far:', self.x)    
+
+    def __del__(self):          # destructor
+        # r = input('Are you sure? ')
+        print('Destructor DELETE', self.name, ' - x:', self.x)
 
 print()
-an = PartyAnimal()
+an = PartyAnimal('Tiger')
 an.party()
 PartyAnimal.party(an)
+an = 42
+print("Now 'an':", an, type(an))
 print()
 
-# # dir() & type() to inspect variables, types, and objects. Both tell us
-# # something about the object. dir() lists capabilities. 
-# # type() tell us what kind of object is x (by eg.)
-# x = []
-# print(x, type(x), '\n', dir(x), '\n')
-# y = 'Hi Py'
-# print(y, type(y), '\n', dir(y), '\n')
-# # for an object above instaciated
-# print(an, type(an), '\n', dir(an), '\n')
+az = PartyAnimal('Goose')
+ax = PartyAnimal('Dog')
+ax.party()
+print(ax.name)
+del(az)
+print()
 
-t = (x, y, az) = (list(), str(3.1416), PartyAnimal())
-print(t, '\n')
-for obj in t:
-    print(obj, type(obj), '\n', dir(obj), '\n')
+#a = input()
 
-
+# when program finish ALL objs. are DELETED!?

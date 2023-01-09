@@ -31,4 +31,11 @@ print(t, '\n')
 for obj in t:
     print(obj, type(obj), '\n', dir(obj), '\n')
 
+# ta = (l, s, az, t, d, et) = (list(), str(3.1416), 
+# PartyAnimal(), tuple(), dict(), set())
+# print(ta, '\n')
+# for obj in ta:
+#     print(obj, type(obj), '\n', dir(obj), '\n')
 
+# print(l, type(l), '\n', dir(l), '\n')
+# print(an, type(an), '\n', dir(an), '\n')
