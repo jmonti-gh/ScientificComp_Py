@@ -1,7 +1,6 @@
 ''' Scientific Computing with Python - Project 1: Arithmetic Formatter '''
 
-# arithmetic_arranger_v0.py
-#   previus version (test) to definitlye to present
+# arithmetic_arranger.py
 
 def arithmetic_arranger(problems, answers=False):
     # check number of problems limit. Max is 5
@@ -49,7 +48,7 @@ def arithmetic_arranger(problems, answers=False):
         # build the complete strings for every row, r1 = topn
         r2 = sign + ' ' + bottn     
         r3 = '-' * (len(r2))           # Operation ansswer separator
-        # for r4 complete w/spcs to have the same with as r3
+        # for r4 complete w/spcs to have the same width as r3 (right alingn)
         r4 = (len(r3) - len(ans)) * ' ' + ans
 
         # build the complete lines w/all the prblems
@@ -64,16 +63,3 @@ def arithmetic_arranger(problems, answers=False):
 
     return layout
    
-
-        
-#l = ["32 + 698", {1, 2, 3}, "3801 - 2", 5]
-l = ["32 + 698", "3801 - 2"]
-print(arithmetic_arranger(l, True))
-
-print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 19999", "523 - 49"], True))
-
-print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True))
-
-print(arithmetic_arranger(["32 + 8", "1 / 3801", "9999 - 9999", "523 - 49"]))
-
-print(arithmetic_arranger(["32 + 8", "1 + 3801", "3 - 2", "523 - 49"]))
