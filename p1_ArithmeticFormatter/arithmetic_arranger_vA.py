@@ -2,50 +2,76 @@
 
 # arithmetic_arranger_v0.py
 
-def arithmetic_arranger(problems, b=False):
-    # check number of problems limit is 5
-    limit, lenght = 5, len(problems)
+def arithmetic_arranger(lst, b=False):
+    # check restrictions (number of problems limit restriccions)
+    limit, lenght = 5, len(lst)
     if lenght > limit:
-        return 'Error: Too many problems.'
+        print('Error: Too many problems.')
+        return (1, 'Too many problems', lenght)
+    elif len(lst) < 1:
+        print('Error: Very few problems.')
+        return (2, 'Very few problems', lenght)
 
     # lists were save numbers, signs, and resutls
     topns, signs, bottns, results = [], [], [], []
-   
-    # parse problems
-    for p in problems:                   # for e/problem
-        # check apropiate operators
-        if '*' in p or '/' in p:
-            return "Error: Operator must be '+' or '-'."
+
+    cnt, xcod = 0, 0        # problem counter, exit code   
+    # parse each problem
+    for p in lst:
+        cnt += 1
+        # check if p is string
+        #if type(p) != str :
+        if not type(p) is str:
+            print("Error: Pobrem must be wirte as strings")
+            xcod = (7, 'Invalid problem ', p, ('problem:', cnt))
+            print(xcod, '\n')
+            continue
+        # find invalid signs operations and finish w/error
+        for s in ('%', '//', '*', '/', '**'):
+            spos = p.find(s)
+            if spos != -1:
+                print("Error: Operator must be '+' or '-'.")
+                xcod = (3, 'Invalid operator ', s, ('problem:', cnt))
+                print(xcod, '\n')
+                continue  
 
         # find valid signs positions
         p_pos = p.find('+')
         m_pos = p.find('-')
 
-        # get sign
+        # Parse operations & save correct resutls in respective lists
         if p_pos != -1:
             pos = p_pos
             sign = '+'
         elif m_pos != -1:
             pos = m_pos
             sign = '-'
+        elif p_pos == -1 and m_pos == -1:   # strings wo/sum or subs
+            print("Error: Invalid problem.")
+            xcod = (4, 'Invalid problem', "Not '+' or '-' founded",
+                        ('problem:', cnt))
+            print(xcod, '\n')
+            continue
+        else:
+            print('Siamo Fouri - # Parse operations')
+            raise Exception()
 
-        # get top and botton
         topn = p[:pos].strip()
         bottn = p[(pos+1):].strip()
-
-        # if operands are not integers
+        # if the operands are not integers
         if not topn.isdigit() or not bottn.isdigit():
-            return "Error: Numbers must only contain digits."
-        
+            print("Error: Numbers must only contain digits.")
+            xcod = (5, 'Not digits ', topn, bottn, ('problem:', cnt))
+            print(xcod, '\n')
+            continue
         # check operands witth (max 4 digis)
         if len(topn) > 4 or len(bottn) > 4:
-            return "Error: Numbers cannot be more than four digits."
+            print("Error: Numbers cannot be more than four digits.")
+            xcod = (6, 'More than 4 digs ', topn, bottn, ('problem:', cnt))
+            print(xcod, '\n')
+            continue
         
         # Everything ok, can fill the lists
-        topns.append(topn)      # save top number in topns[]
-        signs.append(sign)      # save sign in signs[]
-        bottns.append(bottn)
-
         # Convert numbers to int
         try:
             topi = int(topn)
@@ -54,7 +80,10 @@ def arithmetic_arranger(problems, b=False):
             print('Siamo Fouri -  # Convert numbers to int ', e)
             raise Exception
 
-        # Do operation & save the result
+        topns.append(topn)
+        signs.append(sign)
+        bottns.append(bottn)
+        # Do operation
         if sign == '+':
             result = topi + botti
         elif sign == '-':
@@ -70,11 +99,11 @@ def arithmetic_arranger(problems, b=False):
     # print(results)
     # print()
 
-    # No es necesario salvarlos en lists, si vamos 'retunr' un GRAN str con varias 
-    # líneas vamos comppletando las líneas y despues las contactenemos y
-    # los espacios delante de los nros, justamante los llenamos con ' ' para que nos
-    # quede alineado a la derecha siempre tomando como nro de ref el max. width, o
-    # se el sign + esp + max(len) - todo strings solo pasan a int. cuando se sum o rest
+    # Check really extrange case ...
+    if (len(topns) != len(signs) or len(topns) != len(signs) or
+        len(topns) != len(bottns)):
+        print('Siamo Fouri - # Check really extrange case ...')
+        raise Exception()
 
     print()
     # Print the top numbers (first line)
@@ -109,13 +138,12 @@ def arithmetic_arranger(problems, b=False):
         
 
         
-#l = ["32 + 698", {1, 2, 3}, "3801 - 2", 5]
-l = ["32 + 698", "3801 - 2"]
-#arithmetic_arranger(l, True)
+l = ["32 + 698", {1, 2, 3}, "3801 - 2", 5]
+arithmetic_arranger(l, True)
 
-print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 19999", "523 - 49"], True))
+arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 19999", "523 - 49"], True)
 
-print(arithmetic_arranger(["32 + 8", "1 / 3801", "9999 - 9999", "523 - 49"]))
+arithmetic_arranger(["32 + 8", "1 / 3801", "9999 - 9999", "523 - 49"])
 
 # p = '32 + 8'   
 # p_pos = p.find('+')
