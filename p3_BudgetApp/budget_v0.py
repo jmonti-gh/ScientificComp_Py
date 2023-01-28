@@ -40,7 +40,7 @@ class Category:
     def __str__(self):
         res = self.name.center(30, '*') + '\n'
         for el in self.ledger:
-           res += ('{:<23} {:>7}'.format(el['description'], el['amount']) +
+           res += ('{:<23}{:>7.2f}'.format(el['description'], el['amount']) +
                     '\n') 
         res += 'Total: ' + str(self.get_balance())
         return res
@@ -52,19 +52,20 @@ def create_spend_chart(lst):
 fo = Category('food')
 #print(fo)
 fo.deposit(1000, 'initial deposit')
-#fo.withdraw(10.15, 'groceries')
-fo.deposit(300, 'rent transf')
+#fo.deposit(300, 'rent transf')
 fo.withdraw(10.15, 'groceries')
+fo.withdraw(15.89, 'restaurant and mode foodnessty')
+fo.withdraw(50, 'Transfer to Clothing')
 #print(fo.__dict__)
 # fo.deposit(.5, 'tax recover')
 print()
 print(fo)
-print()
-print(fo.get_balance())
-print(fo.get_balance())
-print()
-print(fo.withdraw(5000))
-print(fo.get_balance())
-print(fo.__dict__)
+# print()
+# print(fo.get_balance())
+# print(fo.get_balance())
+# print()
+# print(fo.withdraw(5000))
+# print(fo.get_balance())
+# print(fo.__dict__)
 
 
