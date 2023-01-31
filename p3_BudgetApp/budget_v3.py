@@ -1,6 +1,6 @@
 ''' Scientific Computing w/Python'''
 
-# budget_v1.py                  # presupuesto
+# budget_v3.py                  # presupuesto
 
 class Category:
     def __init__ (self, category):
@@ -73,9 +73,24 @@ def create_spend_chart(lst):
     print(di, '\n', sum(di.values()))
     # Calc the required % and store in the same dict, respective key
     big_tot = sum(di.values())
+    d2 = {}
     for k in di:
         di[k] = di[k] * 100 / big_tot
+        if di[k] % 10 != 0:
+            d2[k] = (di[k] - di[k] % 10) - 10
+        else: d2[k] = di[k]
     print(di, '\n', sum(di.values()))
+    print(d2, '\n', sum(d2.values()))
+
+    # return(round((((self.withdrawls/Category.totalwithdrawls)*100)-5)/10)*10)
+    # percentage_spent = int((cat.spends/spends_total)*100) # Round to the nearest 10 --wrong?
+    # # 3?
+    # percentage.append(math.floor(categoty.get_withdraws()*100/total/10)*10)
+    # percents.append(int((100*k.totwdr/grand_total)//10)*10)  # wrong?
+
+
+
+
 
 
             
